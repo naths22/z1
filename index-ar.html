@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="مجلة زيتون — كتابة متأنية في الثقافة والأفكار والعالم." />
+  <meta name="theme-color" content="#0d1008" />
+  <meta property="og:title" content="زيتون — مجلة أدبية" />
+  <meta property="og:description" content="كتابة متأنية في الثقافة والأفكار والعالم." />
+  <meta property="og:type" content="website" />
+  <title>زيتون — مجلة أدبية</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── متغيرات اللون — بالكامل زيتوني غامق وفاتح ────── */
+    :root {
+      /* خلفيات — الزيتوني الغامق جداً */
+      --bg:           #0d1008;
+      --bg-card:      #121508;
+      --bg-hover:     #181c0b;
+      --bg-deep:      #0a0d06;
+
+      /* حدود */
+      --border:       #243010;
+      --border-soft:  #1a2209;
+
+      /* تدرجات الزيتوني الغامق */
+      --olive-darkest: #1c2408;
+      --olive-dark1:   #253010;
+      --olive-dark2:   #354518;
+      --olive-dark3:   #4a6020;
+      --olive-dark4:   #5c7828;
+
+      /* تدرجات الزيتوني المتوسط */
+      --olive-mid1:    #6e8c30;
+      --olive-mid2:    #80a038;
+      --olive-mid3:    #93b542;
+
+      /* تدرجات الزيتوني الفاتح */
+      --olive-light1:  #a8cc4e;
+      --olive-light2:  #bcd85c;
+      --olive-light3:  #cee46e;
+      --olive-light4:  #ddf080;
+      --olive-light5:  #eaf8a0;
+
+      /* ألوان النص */
+      --text-head:     #ddf080;
+      --text-body:     #a8b878;
+      --text-dim:      #6e8448;
+      --text-meta:     #4a5c28;
+      --text-bright:   #eaf8a0;
+
+      /* خلفية بطاقة مميزة */
+      --card-glow:     rgba(110,140,48,.12);
+
+      --radius:      4px;
+      --radius-lg:   8px;
+      --font-serif:  'Amiri', 'Georgia', serif;
+      --font-body:   'Tajawal', sans-serif;
+      --font-mono:   'JetBrains Mono', monospace;
+      --max-w:       1100px;
+      --col-read:    700px;
+      --transition:  200ms cubic-bezier(.4,0,.2,1);
+    }
+
+    /* ─── إعادة ضبط ──────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--bg);
+      color: var(--text-body);
+      font-family: var(--font-body);
+      line-height: 1.85;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      direction: rtl;
+    }
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── طبقة التحبيب ──────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 999; opacity: .025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px;
+    }
+
+    /* خلفية تدرج هادئ */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 20% 10%, rgba(74,96,32,.18) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 80% 80%, rgba(35,56,12,.22) 0%, transparent 60%);
+    }
+
+    /* ─── شريط التمرير ───────────────────────────────────── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(to bottom, var(--olive-dark3), var(--olive-mid1));
+      border-radius: 3px;
+    }
+
+    /* ─── شريط القراءة ───────────────────────────────────── */
+    .progress-bar {
+      position: fixed; top: 0; right: 0; z-index: 200;
+      height: 2px; width: 0%;
+      background: linear-gradient(to left, var(--olive-light1), var(--olive-light4));
+      box-shadow: 0 0 10px rgba(190,220,80,.5);
+      transition: width .1s linear;
+    }
+
+    /* ─── الهيدر ─────────────────────────────────────────── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,16,8,.94);
+      backdrop-filter: blur(16px) saturate(1.5);
+      -webkit-backdrop-filter: blur(16px) saturate(1.5);
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .header-inner {
+      max-width: var(--max-w); margin: 0 auto;
+      padding: 0 1.5rem; height: 64px;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 2rem;
+    }
+    .logo {
+      font-family: var(--font-serif);
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--olive-light3);
+      display: flex; align-items: center; gap: .5rem;
+      flex-shrink: 0; letter-spacing: 0;
+    }
+    .logo-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--olive-light4);
+      flex-shrink: 0;
+      box-shadow: 0 0 10px var(--olive-light3), 0 0 20px rgba(180,220,80,.3);
+    }
+    nav { display: flex; align-items: center; gap: .2rem; }
+    nav a {
+      font-family: var(--font-body); font-size: .85rem; font-weight: 500;
+      color: var(--text-dim);
+      padding: .4rem .85rem; border-radius: var(--radius);
+      transition: color var(--transition), background var(--transition);
+    }
+    nav a:hover { color: var(--olive-light2); background: rgba(110,140,48,.12); }
+    nav a.active { color: var(--olive-light2); }
+
+    .header-actions { display: flex; align-items: center; gap: .6rem; }
+    .search-btn {
+      background: none; border: 1px solid var(--border);
+      color: var(--text-meta); cursor: pointer;
+      width: 34px; height: 34px; border-radius: var(--radius);
+      display: grid; place-items: center;
+      transition: border-color var(--transition), color var(--transition);
+    }
+    .search-btn:hover { border-color: var(--olive-mid1); color: var(--olive-light2); }
+
+    /* هامبرغر */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--text-dim); border-radius: 2px;
+      transition: transform var(--transition), opacity var(--transition);
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* قائمة الجوال */
+    .mobile-nav {
+      display: none; position: fixed;
+      top: 64px; left: 0; right: 0; bottom: 0;
+      background: rgba(10,13,6,.98); z-index: 99;
+      flex-direction: column; padding: 2rem 1.5rem; gap: .5rem;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-family: var(--font-body); font-size: .95rem; font-weight: 500;
+      color: var(--text-dim); padding: .9rem 1rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-soft);
+      transition: color var(--transition), border-color var(--transition), background var(--transition);
+    }
+    .mobile-nav a:hover {
+      color: var(--olive-light2); border-color: var(--olive-dark3);
+      background: rgba(110,140,48,.1);
+    }
+
+    /* ─── محتوى فوق الطية ───────────────────────────────── */
+    .hero {
+      max-width: var(--max-w); margin: 0 auto;
+      padding: 4rem 1.5rem 3rem;
+      position: relative; z-index: 1;
+    }
+    .hero-label {
+      font-family: var(--font-body); font-size: .75rem; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--olive-mid2);
+      display: flex; align-items: center; gap: .6rem;
+      margin-bottom: 1.25rem;
+    }
+    .hero-label::after {
+      content: '';
+      width: 28px; height: 1px;
+      background: linear-gradient(to left, transparent, var(--olive-mid2));
+    }
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      font-weight: 700; line-height: 1.2;
+      color: var(--text-head); letter-spacing: 0;
+      max-width: 820px; margin-bottom: 1rem;
+    }
+    .hero-title em { font-style: italic; color: var(--olive-light4); }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--text-dim);
+      max-width: 540px; line-height: 1.8;
+    }
+
+    /* ─── الكروت المميزة ─────────────────────────────────── */
+    .featured-strip {
+      max-width: var(--max-w); margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+      position: relative; z-index: 1;
+    }
+    .strip-label {
+      font-family: var(--font-body); font-size: .72rem; font-weight: 500;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--text-meta); margin-bottom: 1.25rem;
+      padding-bottom: .6rem; border-bottom: 1px solid var(--border-soft);
+    }
+    .featured-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 1px;
+      background: var(--border-soft);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .feat-main {
+      background: var(--bg-card);
+      padding: 2.5rem;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      min-height: 380px; position: relative; overflow: hidden;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .feat-main::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(225deg, rgba(74,96,32,.2) 0%, transparent 55%),
+        linear-gradient(to top, rgba(10,13,6,.6) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    /* دائرة زخرفية */
+    .feat-main .deco-ring {
+      position: absolute; top: 1.75rem; left: 1.75rem;
+      width: 72px; height: 72px;
+      border: 1px solid rgba(168,204,78,.15); border-radius: 50%;
+    }
+    .feat-main .deco-ring::after {
+      content: ''; position: absolute; inset: 10px;
+      border: 1px dashed rgba(168,204,78,.1); border-radius: 50%;
+    }
+    .feat-main:hover { background: var(--bg-hover); }
+    .feat-main:hover .card-title { color: var(--olive-light3); }
+
+    .feat-side { display: flex; flex-direction: column; background: var(--bg-card); }
+    .feat-side-item {
+      flex: 1; padding: 1.6rem 1.75rem;
+      display: flex; flex-direction: column; justify-content: space-between;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .feat-side-item + .feat-side-item { border-top: 1px solid var(--border-soft); }
+    .feat-side-item:hover { background: var(--bg-hover); }
+    .feat-side-item:hover .card-title { color: var(--olive-light3); }
+
+    /* ─── وسوم الكروت ────────────────────────────────────── */
+    .card-tag {
+      font-family: var(--font-body); font-size: .68rem; font-weight: 500;
+      letter-spacing: .06em;
+      color: var(--olive-mid2); margin-bottom: .55rem;
+      display: inline-flex; align-items: center; gap: .35rem;
+    }
+    .card-tag::before { content: '◆'; font-size: .4rem; opacity: .6; }
+
+    .card-title {
+      font-family: var(--font-serif); font-weight: 700;
+      color: var(--text-head); line-height: 1.35;
+      transition: color var(--transition);
+    }
+    .feat-main .card-title { font-size: 1.65rem; margin-bottom: .7rem; }
+    .feat-side-item .card-title { font-size: 1.05rem; }
+
+    .card-excerpt { font-size: .92rem; color: var(--text-dim); line-height: 1.7; margin-bottom: 1.1rem; }
+    .card-meta {
+      display: flex; align-items: center; gap: .65rem; flex-wrap: wrap;
+      font-family: var(--font-body); font-size: .72rem;
+      color: var(--text-meta);
+    }
+    .card-meta-sep { opacity: .4; }
+    .read-time { display: flex; align-items: center; gap: .3rem; }
+
+    /* ─── التخطيط الرئيسي ────────────────────────────────── */
+    .main-layout {
+      max-width: var(--max-w); margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 3rem; align-items: start;
+      position: relative; z-index: 1;
+    }
+
+    /* رأس القسم */
+    .section-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.5rem; padding-bottom: .7rem;
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .section-head-label {
+      font-family: var(--font-body); font-size: .72rem; font-weight: 500;
+      letter-spacing: .07em; text-transform: uppercase; color: var(--text-body);
+    }
+    .section-head-link {
+      font-family: var(--font-body); font-size: .68rem; font-weight: 500;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--olive-mid2);
+      display: flex; align-items: center; gap: .3rem;
+      transition: color var(--transition);
+    }
+    .section-head-link:hover { color: var(--olive-light2); }
+    .section-head-link::before { content: '←'; }
+
+    /* قائمة المقالات */
+    .article-list { display: flex; flex-direction: column; gap: .75rem; }
+    .article-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      padding: 1.6rem 1.85rem;
+      cursor: pointer;
+      transition: background var(--transition), border-color var(--transition), transform var(--transition);
+      position: relative; overflow: hidden;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 1.25rem; align-items: start;
+    }
+    /* خط جانبي */
+    .article-card::after {
+      content: '';
+      position: absolute; right: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--olive-mid2), transparent);
+      opacity: 0; transition: opacity var(--transition);
+    }
+    .article-card:hover {
+      background: var(--bg-hover);
+      border-color: var(--olive-dark3);
+      transform: translateX(-2px);
+    }
+    .article-card:hover::after { opacity: 1; }
+    .article-card:hover .card-title { color: var(--olive-light3); }
+
+    .article-num {
+      font-family: var(--font-mono); font-size: .6rem;
+      color: var(--text-meta); letter-spacing: .04em;
+      position: absolute; top: 1.6rem; left: 1.85rem;
+    }
+    .article-body { min-width: 0; }
+
+    /* ─── الشريط الجانبي ─────────────────────────────────── */
+    .sidebar { position: sticky; top: 84px; display: flex; flex-direction: column; gap: 1.5rem; }
+    .sidebar-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      padding: 1.4rem;
+    }
+    .sidebar-title {
+      font-family: var(--font-body); font-size: .68rem; font-weight: 500;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--text-body); margin-bottom: 1.1rem;
+      padding-bottom: .6rem; border-bottom: 1px solid var(--border-soft);
+    }
+
+    /* وسوم الموضوعات */
+    .topics-list { display: flex; flex-wrap: wrap; gap: .45rem; }
+    .topic-tag {
+      font-family: var(--font-body); font-size: .72rem; font-weight: 500;
+      color: var(--text-dim); padding: .3rem .7rem;
+      border: 1px solid var(--border);
+      border-radius: 2px; cursor: pointer;
+      transition: color var(--transition), border-color var(--transition), background var(--transition);
+    }
+    .topic-tag:hover, .topic-tag.active {
+      color: var(--olive-light2); border-color: var(--olive-mid1);
+      background: rgba(110,140,48,.1);
+    }
+
+    /* النشرة البريدية */
+    .digest-text { font-size: .88rem; color: var(--text-dim); line-height: 1.7; margin-bottom: 1rem; }
+    .digest-input {
+      width: 100%; background: var(--bg);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      color: var(--text-body); font-family: var(--font-body); font-size: .85rem;
+      padding: .6rem .85rem; margin-bottom: .6rem; outline: none;
+      transition: border-color var(--transition); direction: rtl;
+    }
+    .digest-input:focus { border-color: var(--olive-mid1); }
+    .digest-input::placeholder { color: var(--text-meta); }
+    .digest-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--olive-dark3) 0%, var(--olive-dark4) 100%);
+      border: 1px solid var(--olive-mid1); border-radius: var(--radius);
+      color: var(--olive-light3); font-family: var(--font-body); font-size: .78rem; font-weight: 600;
+      letter-spacing: .05em; padding: .65rem; cursor: pointer;
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+    .digest-btn:hover {
+      background: linear-gradient(135deg, var(--olive-dark4) 0%, var(--olive-mid1) 100%);
+      box-shadow: 0 0 20px rgba(110,140,48,.25);
+    }
+
+    /* الاختيارات الأكثر قراءة */
+    .picks-list { display: flex; flex-direction: column; gap: .6rem; }
+    .pick-item {
+      display: flex; gap: .7rem; align-items: flex-start;
+      cursor: pointer; padding: .5rem; border-radius: var(--radius);
+      transition: background var(--transition);
+    }
+    .pick-item:hover { background: rgba(255,255,255,.02); }
+    .pick-num {
+      font-family: var(--font-mono); font-size: .65rem;
+      color: var(--olive-mid2); flex-shrink: 0; line-height: 1.6;
+    }
+    .pick-title {
+      font-family: var(--font-serif); font-size: .9rem;
+      color: var(--text-head); line-height: 1.45;
+      transition: color var(--transition);
+    }
+    .pick-item:hover .pick-title { color: var(--olive-light3); }
+
+    /* ─── فاصل القسم ─────────────────────────────────────── */
+    .section-divider {
+      max-width: var(--max-w); margin: 0 auto 2.5rem;
+      padding: 0 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+      position: relative; z-index: 1;
+    }
+    .section-divider::before, .section-divider::after {
+      content: ''; flex: 1; height: 1px;
+      background: linear-gradient(to left, transparent, var(--border-soft));
+    }
+    .section-divider::after { background: linear-gradient(to right, transparent, var(--border-soft)); }
+    .section-divider-inner {
+      font-family: var(--font-body); font-size: .68rem; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase; color: var(--text-meta);
+    }
+
+    /* ─── المقالات الطويلة ───────────────────────────────── */
+    .longform-strip {
+      max-width: var(--max-w); margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+      position: relative; z-index: 1;
+    }
+    .longform-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+    }
+    .longform-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      cursor: pointer;
+      display: flex; flex-direction: column; gap: .7rem;
+      position: relative; overflow: hidden;
+      transition: background var(--transition), border-color var(--transition), transform var(--transition);
+    }
+    .longform-card::before {
+      content: ''; position: absolute; inset: 0; border-radius: var(--radius-lg);
+      background: linear-gradient(225deg, rgba(74,96,32,.12) 0%, transparent 50%);
+      opacity: 0; pointer-events: none; transition: opacity var(--transition);
+    }
+    .longform-card:hover { background: var(--bg-hover); border-color: var(--olive-dark3); transform: translateY(-2px); }
+    .longform-card:hover::before { opacity: 1; }
+    .longform-card:hover .card-title { color: var(--olive-light3); }
+    .longform-icon {
+      font-size: 1.5rem; color: var(--olive-dark3); line-height: 1;
+    }
+
+    /* ─── الفوتر ─────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border-soft);
+      background: var(--bg-card);
+      position: relative; z-index: 1;
+    }
+    .footer-inner {
+      max-width: var(--max-w); margin: 0 auto;
+      padding: 3rem 1.5rem 2rem;
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 2rem;
+    }
+    .footer-brand .logo { margin-bottom: .75rem; }
+    .footer-brand p { font-size: .85rem; color: var(--text-meta); line-height: 1.7; max-width: 230px; }
+    .footer-col-title {
+      font-family: var(--font-body); font-size: .68rem; font-weight: 500;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--text-body); margin-bottom: 1rem;
+    }
+    .footer-links { display: flex; flex-direction: column; gap: .5rem; }
+    .footer-links a { font-size: .88rem; color: var(--text-meta); transition: color var(--transition); }
+    .footer-links a:hover { color: var(--olive-light2); }
+    .footer-bottom {
+      max-width: var(--max-w); margin: 0 auto;
+      padding: 1.25rem 1.5rem;
+      border-top: 1px solid var(--border-soft);
+      display: flex; align-items: center; justify-content: space-between;
+      font-family: var(--font-body); font-size: .72rem; color: var(--text-meta);
+    }
+    .footer-bottom-right { display: flex; gap: 1.25rem; }
+    .footer-bottom-right a { color: var(--text-meta); transition: color var(--transition); }
+    .footer-bottom-right a:hover { color: var(--olive-light2); }
+
+    /* ─── صفحة المقال ────────────────────────────────────── */
+    .article-view {
+      display: none; max-width: var(--col-read);
+      margin: 3rem auto; padding: 0 1.5rem 4rem;
+      animation: fadeUp .4s ease both;
+      position: relative; z-index: 1;
+    }
+    .article-view.visible { display: block; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .article-back {
+      font-family: var(--font-body); font-size: .75rem; font-weight: 500;
+      letter-spacing: .06em;
+      color: var(--olive-mid2); display: inline-flex; align-items: center; gap: .45rem;
+      margin-bottom: 2.5rem; cursor: pointer;
+      transition: color var(--transition);
+    }
+    .article-back:hover { color: var(--olive-light2); }
+    .article-back::before { content: '→'; }
+    .article-header { margin-bottom: 2.5rem; }
+    .article-header .card-tag { font-size: .72rem; margin-bottom: .85rem; }
+    .article-header h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
+      font-weight: 700; line-height: 1.25;
+      color: var(--text-head); margin-bottom: 1rem;
+    }
+    .article-header .lead {
+      font-size: 1.1rem; color: var(--text-dim);
+      line-height: 1.8; margin-bottom: 1.5rem;
+      padding-right: 1rem; border-right: 2px solid var(--olive-dark3);
+    }
+    .article-header .article-meta {
+      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+      font-family: var(--font-body); font-size: .72rem; color: var(--text-meta);
+      padding-top: 1.25rem; border-top: 1px solid var(--border-soft);
+    }
+    .article-content { font-size: 1.05rem; line-height: 1.95; color: var(--text-body); }
+    .article-content p { margin-bottom: 1.6rem; }
+    .article-content h2 {
+      font-family: var(--font-serif); font-size: 1.55rem;
+      font-weight: 700; color: var(--text-head);
+      margin: 2.5rem 0 1rem;
+    }
+    .article-content blockquote {
+      margin: 2rem 0; padding: 1.25rem 1.5rem;
+      border-right: 3px solid var(--olive-mid2);
+      background: var(--bg-card); border-radius: 0 var(--radius) var(--radius) 0;
+      font-style: normal; color: var(--text-dim); font-size: 1.05rem;
+      font-family: var(--font-serif);
+    }
+    .article-content code {
+      font-family: var(--font-mono); font-size: .82rem;
+      background: var(--bg-card); border: 1px solid var(--border);
+      padding: .15rem .4rem; border-radius: var(--radius); color: var(--olive-light2);
+    }
+
+    /* ─── الصفحة الرئيسية ────────────────────────────────── */
+    .home-view { display: block; position: relative; z-index: 1; }
+    .home-view.hidden { display: none; }
+
+    /* ─── الحركات ────────────────────────────────────────── */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero           { animation: fadeIn .5s ease .05s both; }
+    .featured-strip { animation: fadeIn .5s ease .15s both; }
+    .main-layout    { animation: fadeIn .5s ease .25s both; }
+
+    /* ─── تجاوب الجوال ───────────────────────────────────── */
+    @media (max-width: 900px) {
+      .main-layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .featured-grid { grid-template-columns: 1fr; }
+      .feat-side { flex-direction: row; }
+      .feat-side-item + .feat-side-item { border-top: none; border-right: 1px solid var(--border-soft); }
+      .longform-grid { grid-template-columns: 1fr 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      nav { display: none; }
+      .hamburger { display: flex; }
+    }
+    @media (max-width: 600px) {
+      .feat-side { flex-direction: column; }
+      .feat-side-item + .feat-side-item { border-right: none; border-top: 1px solid var(--border-soft); }
+      .longform-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: .75rem; text-align: center; }
+      .article-card { grid-template-columns: 1fr; }
+      .article-num { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- الهيدر -->
+  <header>
+    <div class="header-inner">
+      <a href="#" class="logo" onclick="showHome(event)">
+        <span class="logo-dot"></span>
+        زيتون
+      </a>
+      <nav>
+        <a href="#" class="active" onclick="showHome(event)">المجلة</a>
+        <a href="#">مقالات</a>
+        <a href="#">ثقافة</a>
+        <a href="#">تقنية</a>
+        <a href="#">عن المجلة</a>
+      </nav>
+      <div class="header-actions">
+        <button class="search-btn" aria-label="بحث">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="القائمة" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="mobile-nav" id="mobileNav">
+    <a href="#" onclick="showHome(event);toggleMenu()">المجلة</a>
+    <a href="#">مقالات</a>
+    <a href="#">ثقافة</a>
+    <a href="#">تقنية</a>
+    <a href="#">عن المجلة</a>
+  </nav>
+
+  <!-- الصفحة الرئيسية -->
+  <main class="home-view" id="homeView">
+
+    <!-- الواجهة الرئيسية -->
+    <section class="hero">
+      <div class="hero-label">مجلة أدبية مستقلة · منذ ٢٠٢٤</div>
+      <h1 class="hero-title">أفكار تستحق أن <em>تتأمل فيها</em> طويلاً.</h1>
+      <p class="hero-sub">كتابة متأنية ورصينة في الثقافة والتقنية ونسيج الحياة المعاصرة. بلا ضجيج — فقط جوهر.</p>
+    </section>
+
+    <!-- المميزة -->
+    <section class="featured-strip">
+      <div class="strip-label">أبرز ما نُشر هذا الأسبوع</div>
+      <div class="featured-grid">
+        <div class="feat-main" onclick="openArticle('main')">
+          <div class="deco-ring"></div>
+          <div>
+            <span class="card-tag">مقال</span>
+            <h2 class="card-title">الصمت الذي يسكن بين الإشعارات</h2>
+            <p class="card-excerpt">ماذا يحدث لعالمنا الداخلي حين تستوطن الشاشات كل لحظة فراغ؟ نظرة معمّقة في اقتصاد الانتباه وما نخسره حين نتوقف عن الملل.</p>
+            <div class="card-meta">
+              <span>مرا أوكافور</span>
+              <span class="card-meta-sep">·</span>
+              <span class="read-time">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                ٩ دقائق قراءة
+              </span>
+              <span class="card-meta-sep">·</span>
+              <span>٨ مايو ٢٠٢٦</span>
+            </div>
+          </div>
+        </div>
+        <div class="feat-side">
+          <div class="feat-side-item" onclick="openArticle('a1')">
+            <div>
+              <span class="card-tag">تقنية</span>
+              <h3 class="card-title">الأدوات التي باتت تفكّر بدلاً منّا</h3>
+            </div>
+            <div class="card-meta"><span>جون بارك</span><span class="card-meta-sep">·</span><span>٦ دقائق</span></div>
+          </div>
+          <div class="feat-side-item" onclick="openArticle('a2')">
+            <div>
+              <span class="card-tag">ثقافة</span>
+              <h3 class="card-title">المقاومة التناظرية في عالم رقمي</h3>
+            </div>
+            <div class="card-meta"><span>لينا فوس</span><span class="card-meta-sep">·</span><span>٥ دقائق</span></div>
+          </div>
+          <div class="feat-side-item" onclick="openArticle('a3')">
+            <div>
+              <span class="card-tag">مجتمع</span>
+              <h3 class="card-title">عودة المكان الثالث</h3>
+            </div>
+            <div class="card-meta"><span>توماس ريفيرا</span><span class="card-meta-sep">·</span><span>٧ دقائق</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- التخطيط الرئيسي -->
+    <div class="main-layout">
+      <section>
+        <div class="section-head">
+          <span class="section-head-label">أحدث المقالات</span>
+          <a href="#" class="section-head-link">جميع المقالات</a>
+        </div>
+        <div class="article-list">
+          <article class="article-card" onclick="openArticle('b1')">
+            <span class="article-num">٠١</span>
+            <div class="article-body">
+              <span class="card-tag">فلسفة</span>
+              <h2 class="card-title" style="font-size:1.15rem;margin-bottom:.5rem;">ضد التحسين المستمر: دفاعاً عن اللاكفاءة</h2>
+              <p class="card-excerpt" style="font-size:.9rem;">حين يُقاس كل فعل بمعيار الإنتاجية، يفرّ شيء جوهري من الحياة إلى ما وراء الجداول.</p>
+              <div class="card-meta">
+                <span>مرا أوكافور</span><span class="card-meta-sep">·</span>
+                <span>١١ دقيقة</span><span class="card-meta-sep">·</span><span>٦ مايو</span>
+              </div>
+            </div>
+          </article>
+          <article class="article-card" onclick="openArticle('b2')">
+            <span class="article-num">٠٢</span>
+            <div class="article-body">
+              <span class="card-tag">عمارة</span>
+              <h2 class="card-title" style="font-size:1.15rem;margin-bottom:.5rem;">مدن بُنيت للعيون لا للأجساد</h2>
+              <p class="card-excerpt" style="font-size:.9rem;">كيف غيّرت برامج التصميم ثلاثي الأبعاد وجه المدينة، ولماذا باتت شوارعنا أقل صلاحية للمشي.</p>
+              <div class="card-meta">
+                <span>أمارا دياللو</span><span class="card-meta-sep">·</span>
+                <span>٨ دقائق</span><span class="card-meta-sep">·</span><span>٤ مايو</span>
+              </div>
+            </div>
+          </article>
+          <article class="article-card" onclick="openArticle('b3')">
+            <span class="article-num">٠٣</span>
+            <div class="article-body">
+              <span class="card-tag">تقنية</span>
+              <h2 class="card-title" style="font-size:1.15rem;margin-bottom:.5rem;">إشكالية الأسلوب في الكتابة الاصطناعية</h2>
+              <p class="card-excerpt" style="font-size:.9rem;">حين يتقارب الأسلوب نحو الوسط، ماذا يبقى للأطراف؟ تأمل في الصوت الأدبي والمؤلف.</p>
+              <div class="card-meta">
+                <span>جون بارك</span><span class="card-meta-sep">·</span>
+                <span>٧ دقائق</span><span class="card-meta-sep">·</span><span>٢ مايو</span>
+              </div>
+            </div>
+          </article>
+          <article class="article-card" onclick="openArticle('b4')">
+            <span class="article-num">٠٤</span>
+            <div class="article-body">
+              <span class="card-tag">طعام وثقافة</span>
+              <h2 class="card-title" style="font-size:1.15rem;margin-bottom:.5rem;">التخمير بوصفه سفراً عبر الزمن</h2>
+              <p class="card-excerpt" style="font-size:.9rem;">صنع خبز الخميرة فعلٌ من الصبر والبيولوجيا والتفاؤل العنيد بالمستقبل.</p>
+              <div class="card-meta">
+                <span>لينا فوس</span><span class="card-meta-sep">·</span>
+                <span>٦ دقائق</span><span class="card-meta-sep">·</span><span>٢٩ أبريل</span>
+              </div>
+            </div>
+          </article>
+          <article class="article-card" onclick="openArticle('b5')">
+            <span class="article-num">٠٥</span>
+            <div class="article-body">
+              <span class="card-tag">مجتمع</span>
+              <h2 class="card-title" style="font-size:1.15rem;margin-bottom:.5rem;">ما نعنيه حين نتحدث عن الحرفة</h2>
+              <p class="card-excerpt" style="font-size:.9rem;">الحرفة كلمة تسويقية في زماننا، لكن المعنى الأصيل — المهارة المُكتسبة بالصبر — لا يزال يعني شيئاً.</p>
+              <div class="card-meta">
+                <span>توماس ريفيرا</span><span class="card-meta-sep">·</span>
+                <span>٩ دقائق</span><span class="card-meta-sep">·</span><span>٢٦ أبريل</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- الشريط الجانبي -->
+      <aside class="sidebar">
+        <div class="sidebar-block">
+          <div class="sidebar-title">تصفح حسب الموضوع</div>
+          <div class="topics-list">
+            <span class="topic-tag active">الكل</span>
+            <span class="topic-tag">ثقافة</span>
+            <span class="topic-tag">تقنية</span>
+            <span class="topic-tag">مجتمع</span>
+            <span class="topic-tag">مقال</span>
+            <span class="topic-tag">فلسفة</span>
+            <span class="topic-tag">طعام</span>
+            <span class="topic-tag">عمارة</span>
+          </div>
+        </div>
+
+        <div class="sidebar-block">
+          <div class="sidebar-title">النشرة الأسبوعية</div>
+          <p class="digest-text">بريد واحد، مرة أسبوعياً. أفضل مقالة بلا حشو.</p>
+          <input class="digest-input" type="email" placeholder="بريدك الإلكتروني" />
+          <button class="digest-btn" id="digestBtn">اشترك الآن</button>
+        </div>
+
+        <div class="sidebar-block">
+          <div class="sidebar-title">اختيارات القراء</div>
+          <div class="picks-list">
+            <div class="pick-item" onclick="openArticle('b1')">
+              <span class="pick-num">٠١</span>
+              <span class="pick-title">ضد التحسين المستمر: دفاعاً عن اللاكفاءة</span>
+            </div>
+            <div class="pick-item" onclick="openArticle('main')">
+              <span class="pick-num">٠٢</span>
+              <span class="pick-title">الصمت الذي يسكن بين الإشعارات</span>
+            </div>
+            <div class="pick-item" onclick="openArticle('a3')">
+              <span class="pick-num">٠٣</span>
+              <span class="pick-title">عودة المكان الثالث</span>
+            </div>
+            <div class="pick-item" onclick="openArticle('b5')">
+              <span class="pick-num">٠٤</span>
+              <span class="pick-title">ما نعنيه حين نتحدث عن الحرفة</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- فاصل -->
+    <div class="section-divider"><span class="section-divider-inner">قراءات معمّقة</span></div>
+
+    <section class="longform-strip">
+      <div class="longform-grid">
+        <div class="longform-card" onclick="openArticle('l1')">
+          <div class="longform-icon">⧉</div>
+          <span class="card-tag">تحقيق موسّع</span>
+          <h3 class="card-title" style="font-size:1.1rem;">بنية الوحدة: أطلس معاصر</h3>
+          <p style="font-size:.88rem;color:var(--text-dim);line-height:1.7;">ثمانية عشر شهراً، اثنتا عشرة مدينة، سؤال واحد: لماذا نبني أماكن تجعلنا نشعر بالوحدة؟</p>
+          <div class="card-meta"><span>أمارا دياللو</span><span class="card-meta-sep">·</span><span>٢٤ دقيقة</span></div>
+        </div>
+        <div class="longform-card" onclick="openArticle('l2')">
+          <div class="longform-icon">◈</div>
+          <span class="card-tag">سلسلة · الجزء الأول</span>
+          <h3 class="card-title" style="font-size:1.1rem;">الصحافة البطيئة في عالم متسارع</h3>
+          <p style="font-size:.88rem;color:var(--text-dim);line-height:1.7;">المراسلون الذين يمضون أشهراً لكتابة قصة واحدة — والقراء الذين ينتظرونهم.</p>
+          <div class="card-meta"><span>جون بارك</span><span class="card-meta-sep">·</span><span>١٨ دقيقة</span></div>
+        </div>
+        <div class="longform-card" onclick="openArticle('l3')">
+          <div class="longform-icon">◇</div>
+          <span class="card-tag">حوار</span>
+          <h3 class="card-title" style="font-size:1.1rem;">"أكتب لأكتشف ما أفكر فيه"</h3>
+          <p style="font-size:.88rem;color:var(--text-dim);line-height:1.7;">حوار مع روائية عن عملية الكتابة والصمت والسبب الذي يجعل الإنترنت ضاراً بالرواية.</p>
+          <div class="card-meta"><span>لينا فوس</span><span class="card-meta-sep">·</span><span>١٥ دقيقة</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- صفحة المقال -->
+  <div class="article-view" id="articleView">
+    <span class="article-back" onclick="showHome(event)">العودة إلى المجلة</span>
+    <article>
+      <header class="article-header">
+        <span class="card-tag" id="artTag">مقال</span>
+        <h1 id="artTitle">الصمت الذي يسكن بين الإشعارات</h1>
+        <p class="lead" id="artLead">ماذا يحدث لعالمنا الداخلي حين تستوطن الشاشات كل لحظة فراغ؟ نظرة معمّقة في اقتصاد الانتباه وما نخسره حين نتوقف عن الملل.</p>
+        <div class="article-meta">
+          <span id="artAuthor">مرا أوكافور</span>
+          <span>·</span>
+          <span id="artDate">٨ مايو ٢٠٢٦</span>
+          <span>·</span>
+          <span id="artRead">٩ دقائق قراءة</span>
+        </div>
+      </header>
+      <div class="article-content" id="artContent">
+        <p>ثمة نوعية خاصة من الصمت تعقب إطفاء هاتفك. تحتاج لحظة — أحياناً دقائق عدة — قبل أن تدرك أن هذا الصمت ليس صمتاً حقيقياً. ثمة طيور، أو أصوات مرور، أو أنفاسك أنت. لم يتوقف العالم عن الضجيج قط؛ كان لديك فحسب ما هو أعلى منه تستمع إليه.</p>
+        <p>نتحدث عن الانتباه كأنه مورد يُدار ويُوزَّع ببصيرة. نستخدم مفردات "اقتصاد الانتباه" بمصطلحات الندرة الاقتصادية الصارمة: عرض وطلب واستخراج وقيمة. هذا الإطار دقيق، لكنه محدود، لأنه يعامل الانتباه كشيء خارجي نسلّمه أو نحجبه. في الحقيقة، الانتباه أقرب إلى ما <em>نكونه</em> نحن أنفسنا.</p>
+        <h2>بنية التشتيت</h2>
+        <p>لم تُصمَّم منصات التواصل الاجتماعي لتكون مُسببة للإدمان بالطريقة التي صُممت بها السجائر لتوصيل النيكوتين بكفاءة أعلى. كان المهندسون الأوائل لفيسبوك وتويتر يسعون، في معظم الأحوال، إلى ربط الناس بصدق. لكن هياكل الحوافز المنبثقة من نماذج الإيرادات القائمة على الإعلانات جعلت التفاعل هو المقياس — وتبيّن أن التفاعل يتحقق على أفضل وجه بتحفيز أنظمة الكشف عن التهديدات في الدماغ.</p>
+        <blockquote>الهاتف لا يجعلنا أقل قدرة على التفكير العميق. بل يجعل التفكير العميق يبدو أقل إلحاحاً وأقل ضرورة وأقل مجزياً على المدى القصير. القدرة لا تزال موجودة. العادة هي التي تضمر.</blockquote>
+        <p>الاستياء والجدة والمقارنة الاجتماعية: هذه ليست أعطالاً في النظام، بل سمات ناشئة عن تصميم يستهدف النقرات. نقرنا. واصلنا النقر. وتدريجياً، صار النقر قهرياً — ليس لأن أحداً قصد ذلك، بل لأن النظام كان يتعلم ما يبقينا ننقر، وكان بارعاً جداً في التعلم.</p>
+        <h2>لماذا نحتاج الملل</h2>
+        <p>كتب الفيلسوف بليز باسكال في القرن السابع عشر أن جميع مشكلات البشرية تنبع من عجزنا عن الجلوس بهدوء في غرفة بمفردنا. لم يكن بإمكانه تخيّل عالم لا يمكن فيه الجلوس بهدوء — عالم تمد فيه الغرفة ذاتها يدها لتربت على كتفك كل دقائق.</p>
+        <p>الملل كان دائماً منتجاً. لا بمعنى أنه ينتج مخرجات قابلة للقياس بتطبيق إنتاجية، بل بالمعنى الأعمق: أنه يُهيئ الظروف لمعرفة الذات والإبداع وما اعتدنا تسميته "الحياة الداخلية". حين نملّ، نُقذف بعيداً نحو أنفسنا. نُرغم على مواجهة ما يكون هناك حقاً حين يتوقف الضجيج. كثيرون منا، اتضح، يجدون ذلك غير مريح — وقد جعلت الشاشات هذا الانزعاج اختيارياً تماماً.</p>
+        <h2>طريق للعودة</h2>
+        <p>لا حل نظيف لهذا، ولا تطبيق سينقذك من التطبيقات. لكن ثمة ممارسات — صغيرة، عنيدة، غير رائجة — تبدو مفيدة: السير بلا سماعات، والأكل وحيداً بلا قراءة، والجلوس في وسائل النقل العام وعدم فعل شيء. ترك طابور المقهى مملاً.</p>
+        <p>هذه ليست طقوس تحسين ذاتي. إنها أقرب إلى الصيانة — كسقي نبتة نسيت وجودها. الصمت بين الإشعارات ليس فارغاً. إنه مليء بك أنت. اتضح أنك كنت هناك طوال الوقت.</p>
+      </div>
+    </article>
+  </div>
+
+  <!-- الفوتر -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#" class="logo" onclick="showHome(event)">
+          <span class="logo-dot"></span>
+          زيتون
+        </a>
+        <p>كتابة متأنية في الثقافة والتقنية والحياة المعاصرة. تصدر باستقلالية منذ ٢٠٢٤.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">المجلة</div>
+        <div class="footer-links">
+          <a href="#">الأحدث</a>
+          <a href="#">مقالات</a>
+          <a href="#">قراءات معمّقة</a>
+          <a href="#">حوارات</a>
+          <a href="#">سلاسل</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">الموضوعات</div>
+        <div class="footer-links">
+          <a href="#">ثقافة</a>
+          <a href="#">تقنية</a>
+          <a href="#">مجتمع</a>
+          <a href="#">فلسفة</a>
+          <a href="#">عمارة</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">الموقع</div>
+        <div class="footer-links">
+          <a href="#">عن المجلة</a>
+          <a href="#">الكتّاب</a>
+          <a href="#">خلاصة RSS</a>
+          <a href="#">تواصل معنا</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© ٢٠٢٦ مجلة زيتون. جميع الحقوق محفوظة.</span>
+      <div class="footer-bottom-right">
+        <a href="#">الخصوصية</a>
+        <a href="#">الشروط</a>
+        <a href="#">RSS</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── شريط القراءة ──────────────────────────────────────
+    const bar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const height = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = (scrollTop / height * 100) + '%';
+    }, { passive: true });
+
+    // ─── قائمة الجوال ──────────────────────────────────────
+    function toggleMenu() {
+      document.getElementById('hamburger').classList.toggle('open');
+      document.getElementById('mobileNav').classList.toggle('open');
+    }
+
+    // ─── بيانات المقالات ────────────────────────────────────
+    const articles = {
+      main: {
+        tag: 'مقال', title: 'الصمت الذي يسكن بين الإشعارات',
+        lead: 'ماذا يحدث لعالمنا الداخلي حين تستوطن الشاشات كل لحظة فراغ؟ نظرة في اقتصاد الانتباه.',
+        author: 'مرا أوكافور', date: '٨ مايو ٢٠٢٦', read: '٩ دقائق قراءة'
+      },
+      a1: {
+        tag: 'تقنية', title: 'الأدوات التي باتت تفكّر بدلاً منّا',
+        lead: 'عن الفاعلية والأتمتة والأدوات التي بدأت تُبدي آراءها.',
+        author: 'جون بارك', date: '٧ مايو ٢٠٢٦', read: '٦ دقائق قراءة'
+      },
+      a2: {
+        tag: 'ثقافة', title: 'المقاومة التناظرية في عالم رقمي',
+        lead: 'الناس الذين يختارون الورق والأقلام والخرائط المطبوعة — وما وجدوه.',
+        author: 'لينا فوس', date: '٥ مايو ٢٠٢٦', read: '٥ دقائق قراءة'
+      },
+      a3: {
+        tag: 'مجتمع', title: 'عودة المكان الثالث',
+        lead: 'لا البيت ولا العمل — الأماكن التي اعتاد فيها المجتمع الحقيقي التشكّل، وربما يعود إليها.',
+        author: 'توماس ريفيرا', date: '٣ مايو ٢٠٢٦', read: '٧ دقائق قراءة'
+      },
+      b1: {
+        tag: 'فلسفة', title: 'ضد التحسين المستمر: دفاعاً عن اللاكفاءة',
+        lead: 'حين يُقاس كل فعل بمعيار الإنتاجية، يفرّ شيء جوهري من الحياة إلى ما وراء الجداول.',
+        author: 'مرا أوكافور', date: '٦ مايو ٢٠٢٦', read: '١١ دقيقة قراءة'
+      },
+      b2: {
+        tag: 'عمارة', title: 'مدن بُنيت للعيون لا للأجساد',
+        lead: 'كيف غيّرت برامج التصميم ثلاثي الأبعاد وجه المدينة، ولماذا باتت شوارعنا أقل صلاحية للمشي.',
+        author: 'أمارا دياللو', date: '٤ مايو ٢٠٢٦', read: '٨ دقائق قراءة'
+      },
+      b3: {
+        tag: 'تقنية', title: 'إشكالية الأسلوب في الكتابة الاصطناعية',
+        lead: 'حين يتقارب الأسلوب نحو الوسط، ماذا يبقى للأطراف؟ تأمل في الصوت الأدبي والمؤلف.',
+        author: 'جون بارك', date: '٢ مايو ٢٠٢٦', read: '٧ دقائق قراءة'
+      },
+      b4: {
+        tag: 'طعام وثقافة', title: 'التخمير بوصفه سفراً عبر الزمن',
+        lead: 'صنع خبز الخميرة فعلٌ من الصبر والبيولوجيا والتفاؤل العنيد بالمستقبل.',
+        author: 'لينا فوس', date: '٢٩ أبريل ٢٠٢٦', read: '٦ دقائق قراءة'
+      },
+      b5: {
+        tag: 'مجتمع', title: 'ما نعنيه حين نتحدث عن الحرفة',
+        lead: 'الحرفة كلمة تسويقية في زماننا، لكن المعنى الأصيل — المهارة المُكتسبة بالصبر — لا يزال يعني شيئاً.',
+        author: 'توماس ريفيرا', date: '٢٦ أبريل ٢٠٢٦', read: '٩ دقائق قراءة'
+      },
+      l1: {
+        tag: 'تحقيق موسّع', title: 'بنية الوحدة: أطلس معاصر',
+        lead: 'ثمانية عشر شهراً، اثنتا عشرة مدينة، سؤال واحد: لماذا نبني أماكن تجعلنا نشعر بالوحدة؟',
+        author: 'أمارا دياللو', date: '٢٠ أبريل ٢٠٢٦', read: '٢٤ دقيقة قراءة'
+      },
+      l2: {
+        tag: 'سلسلة · الجزء الأول', title: 'الصحافة البطيئة في عالم متسارع',
+        lead: 'المراسلون الذين يمضون أشهراً لكتابة قصة واحدة — والقراء الذين ينتظرونهم.',
+        author: 'جون بارك', date: '١٤ أبريل ٢٠٢٦', read: '١٨ دقيقة قراءة'
+      },
+      l3: {
+        tag: 'حوار', title: '"أكتب لأكتشف ما أفكر فيه"',
+        lead: 'حوار مع روائية عن عملية الكتابة والصمت والسبب الذي يجعل الإنترنت ضاراً بالرواية.',
+        author: 'لينا فوس', date: '٨ أبريل ٢٠٢٦', read: '١٥ دقيقة قراءة'
+      }
+    };
+
+    // ─── التنقل ─────────────────────────────────────────────
+    function openArticle(id) {
+      const a = articles[id] || articles.main;
+      document.getElementById('artTag').textContent = a.tag;
+      document.getElementById('artTitle').textContent = a.title;
+      document.getElementById('artLead').textContent = a.lead;
+      document.getElementById('artAuthor').textContent = a.author;
+      document.getElementById('artDate').textContent = a.date;
+      document.getElementById('artRead').textContent = a.read;
+      document.getElementById('homeView').classList.add('hidden');
+      document.getElementById('articleView').classList.add('visible');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.title = a.title + ' — زيتون';
+      document.querySelector('meta[name="description"]').setAttribute('content', a.lead);
+    }
+
+    function showHome(e) {
+      e && e.preventDefault();
+      document.getElementById('homeView').classList.remove('hidden');
+      document.getElementById('articleView').classList.remove('visible');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.title = 'زيتون — مجلة أدبية';
+      document.querySelector('meta[name="description"]').setAttribute('content', 'مجلة زيتون — كتابة متأنية في الثقافة والأفكار والعالم.');
+    }
+
+    // ─── فلترة الموضوعات ────────────────────────────────────
+    document.querySelectorAll('.topic-tag').forEach(tag => {
+      tag.addEventListener('click', function () {
+        document.querySelectorAll('.topic-tag').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // ─── النشرة البريدية ────────────────────────────────────
+    document.getElementById('digestBtn').addEventListener('click', function () {
+      const input = document.querySelector('.digest-input');
+      if (input.value && input.value.includes('@')) {
+        this.textContent = 'تم التسجيل ✓';
+        this.style.background = 'linear-gradient(135deg, var(--olive-dark4), var(--olive-mid1))';
+        input.value = '';
+        input.placeholder = 'نراك الأسبوع القادم';
+      }
+    });
+  </script>
+</body>
+</html>
